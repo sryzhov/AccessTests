@@ -16,9 +16,9 @@ import org.openqa.selenium.TimeoutException;
 
 import common.Common;
 
-public class YSLAccessTest {
+public class AccessTests {
 	
-private static Common common;
+	private static Common common;
 	
 	@Rule
 	public TestWatcher screenshotRule = new TestWatcher() {
@@ -32,7 +32,6 @@ private static Common common;
 				Common.userDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 				Common.userDriver.manage().window().maximize();
 				Common.userDriver.manage().window().setSize(new Dimension(1600, 1200));
-				Common.userDriver.get(Common.YSLURL);
 			}
 			catch (TimeoutException e) {
 				
@@ -76,9 +75,10 @@ private static Common common;
 	public static void tearDownAfterClass() throws Exception {
 	}
 	
-	
 	@Test
 	public void YSLAccessTestCase() throws Exception{
+		
+		Common.userDriver.get(Common.YSLURL);
 		
 		try {
 		
