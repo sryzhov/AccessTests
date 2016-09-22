@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="VichyFunctionalTest" default="build" basedir="./../..">
+  <target name="build" depends="clear, compile, run-junit, report"/>
+
+  <property name="junit.output.dir" value="${basedir}/build/junit"/>
+  <property name="junit.output.report.dir" value="${basedir}/build/junit_report_dir"/>
+  <property environment="env"/>
+  <property name="build_number" value="${env.BUILD_NUMBER}"/>
+  <property name="screens.output.dir" value="${basedir}/report/build-${build_number}/screens"/>
+
+
+ <!-- Target: delete all data from previous build -->   
+  <target name="clear">
+    <delete dir="${basedir}/logs"/>
+    <delete dir="${basedir}/tests/screens"/>
+    <delete dir="${junit.output.dir}"/>
+    <delete dir="${junit.output.report.dir}"/>
+    <delete dir="${basedir}/tests/bin"/>
+  </target>
+   
+    <path id="junit.classpath">
+	<pathelement location="${basedir}/tests/bin"/><!-- All compiled classes should be under this folder -->
+	<pathelement location="/var/lib/jenkins/junit/junit.jar"/>
+	<pathelement location="/var/lib/jenkins/Selenium/selenium-server-standalone-2.52.0.jar"/>
+	<pathelement location="/var/lib/jenkins/Selenium/mysql-connector-java-5.1.6-bin.jar"/>
+	<pathelement location="/var/lib/jenkins/Selenium/junit4-oggetto-extension.jar"/>
+	<pathelement location="/var/lib/jenkins/Selenium/org.json-20120521.jar"/>
+	<pathelement location="/usr/lib/jvm/java-7-openjdk-amd64/bin"/>
+    </path>
+  
+  
+ <!-- Target: Compile tests, make *.class files from *.java files -->   
+  <target name="compile">
+    <mkdir dir="${basedir}/tests/bin"/>
+    <javac  srcdir="${basedir}/tests/src"
+            destdir="${basedir}/tests/bin"
+            failonerror="on"
+	    debug="on"
+            includeAntRuntime="on"
+            includeJavaRuntime="on"
+            classpathref="junit.classpath"
+    />
+  </target>
+  
+  
+  <!-- Target: Run JUnit test classes. -->
+  <target name="run-junit">
+    <mkdir dir="${junit.output.dir}"/>
+    <mkdir dir="${screens.output.dir}"/>
+    <mkdir dir="${basedir}/tests/screens"/>
+    <junit 
+	    fork="yes"
+	    maxmemory="1024m"
+	    printsummary="withOutAndErr"
+	    haltonerror="off"
+	    haltonfailure="off"
+	    failureproperty="junit.failure"
+	    errorproperty="junit.error"
+	    dir="${basedir}\tests"
+	>
+      <formatter type="xml"/>
+      
+      <!-- Add all your test class names here. -->
+   	<test name="tests.AccessTests" todir="${junit.output.dir}" unless="AccessTests"/>
+      	<classpath refid="junit.classpath"/>
+    </junit>
+  </target>
+  
+  
+  <!-- Target: Generate JUnit report. -->
+  <target name="report">
+    <mkdir dir="${junit.output.report.dir}"/>
+    <junitreport todir="${junit.output.report.dir}">
+      <fileset dir="${junit.output.dir}">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${junit.output.report.dir}"/>
+    </junitreport>
+
+    <mkdir dir="${basedir}/logs"/>
+    <copy file="${junit.output.report.dir}/TESTS-TestSuites.xml" tofile="${basedir}/logs/TESTS-TestSuites.xml" />
+    <copydir  src="${basedir}/tests/screens" dest="${junit.output.dir}/screens" />
+    <copydir  src="${basedir}/tests/screens" dest="${screens.output.dir}" />
+  
+   <fail if="junit.failure"  message="Tests failed. See report"/>
+   <fail if="junit.error"  message="Tests failed. See report"/>
+  </target>
+
+
+  
+</project>

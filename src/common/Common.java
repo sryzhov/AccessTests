@@ -40,9 +40,32 @@ public class Common {
 	
 	public static WebDriver userDriver;
 	
+	public static String CaritaURL = "http://carita.oggettoweb.com";
+	public static String ClarisonicURL = "https://clarisonic.oggettoweb.com";
+	public static String DecleorURL = "https://decleor.oggettoweb.com";
+	public static String EssieURL = "https://essie-renovation.oggettoweb.com";
+	public static String IntersalesURL = "http://intersales.oggettoweb.com";
+	public static String IntersalesVirginURL = "http://intersales-virgin.oggettoweb.com";
+	public static String KerastaseURL = "https://kerastase.oggettoweb.com";
+	public static String KiehlsURL = "https://kiehls.oggettoweb.com";
+	public static String LancomeURL = "https://lancome.oggettoweb.com";
+	public static String MatrixURL = "https://matrix.dev.oggettoweb.com";
+	public static String NYXURL = "https://nyx.dev.oggettoweb.com";
+	public static String NYXOldURL = "http://nyx-old.oggettoweb.com";
+	public static String RedkenURL = "https://redken.oggettoweb.com";
+	//public static String SkinceuticalsDevURL = "skinceuticals.dev.oggettoweb.com";
+	public static String UrbandecayURL = "https://urbandecay.oggettoweb.com";
+	public static String VichyLastVirginURL = "http://vichy-lastvirgin-vbg.oggettoweb.com";
+	public static String VichyURL = "http://vichy.oggettoweb.com";
+	public static String BiothermURL = "http://biotherm.dev2.oggettoweb.com";
+	public static String ArmaniURL = "http://giorgio-armani.dev2.oggettoweb.com";
+	public static String LorealRenovationURL = "http://loreal-renovation.dev2.oggettoweb.com";
+	public static String LRPURL = "http://lrp-new.dev2.oggettoweb.com";
+	public static String SkinceuticalsDev2URL = "http://www.skinceuticals.dev2.oggettoweb.com";
+	public static String SkinceuticalsRenovationURL = "http://skinceuticals-renovation.dev2.oggettoweb.com";
 	public static String YSLURL = "https://ysl.dev2.oggettoweb.com";
 	
-	public static int pageLoadTimeout = 120;
+	public static int pageLoadTimeout = 60;
 	
 	public static String driverName;
 	
